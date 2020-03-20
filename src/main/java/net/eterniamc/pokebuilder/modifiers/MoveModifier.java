@@ -61,10 +61,10 @@ public class MoveModifier implements Modifier {
                                     moveSlot.addElement(new ActionableElement(
                                                     new RunnableAction(container, ActionType.CLOSE, "", action -> {
                                                         double cost = Config.moveModifierCost * (Arrays.stream(EnumSpecies.LEGENDARY_ENUMS).anyMatch(p -> pixelmon.getSpecies() == p) || pixelmon.getSpecies() == EnumSpecies.Ditto ? Config.legendaryOrDittoMultiplier : 1);
-                                                        if (data.getGui() != null && !Utils.withdrawBalance(player, cost)) {
+                                                        /*if (data.getGui() != null && !Utils.withdrawBalance(player, cost)) {
                                                             Utils.sendPlayerError(player, "You can't afford this!");
                                                             return;
-                                                        }
+                                                        }*/
                                                         pixelmon.getMoveset().set(i, attack);
                                                     }),
                                                     ItemStack.builder()

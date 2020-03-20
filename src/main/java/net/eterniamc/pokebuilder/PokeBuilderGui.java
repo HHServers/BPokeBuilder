@@ -14,7 +14,7 @@ import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.items.ItemPixelmonSprite;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import net.eterniamc.pokebuilder.Configuration.Config;
-import net.eterniamc.pokebuilder.modifiers.Modifier;
+import net.eterniamc.pokebuilder.modifiers.*;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.DyeColors;
@@ -43,7 +43,7 @@ public class PokeBuilderGui {
         Page.PageBuilder main = Page.builder()
                 .setAutoPaging(false)
                 .setInventoryDimension(InventoryDimension.of(9, 3))
-                .setTitle(Text.of(TextColors.RED, "PokeBuilder"));
+                .setTitle(TextSerializers.FORMATTING_CODE.deserialize("&l&8[&r&aHH&d&aPoke&dBuilder&l&8]&r"));
         for (int i = 0; i < 10; i++) {
             main.addElement(new Element(
                     ItemStack.builder()
@@ -153,7 +153,7 @@ public class PokeBuilderGui {
         if (container.hasState("editor"))
             container.removeState("editor");
         Page.PageBuilder builder = Page.builder()
-                .setTitle(TextSerializers.FORMATTING_CODE.deserialize("&cPokeBuilder &7{&aModifiers&7}"))
+                .setTitle(TextSerializers.FORMATTING_CODE.deserialize("&aPoke&dBuilder &l&8[&aModifiers&l&8]"))
                 .setAutoPaging(true)
                 .setEmptyStack(ItemStack.builder()
                         .itemType(ItemTypes.STAINED_GLASS_PANE)
@@ -174,10 +174,10 @@ public class PokeBuilderGui {
                 builder.putElement(i / 2 * 9 + i % 2 * 8, new ActionableElement(
                         new RunnableAction(container, ActionType.NONE, "", c -> {
                             if (Utils.withdrawBalance(player, modifier.getCost(pokemon))) {
-                                if (modifier.run(new ModifierData(pokemon, player, container))) {
+                                if (modifier.run(new ModifierData(pokemon, player, container)) && modifier != (new MoveModifier()) || modifier.equals(new GrowthModifier()) || modifier.equals(new EVModifier()) || modifier.equals(new IVModifier()) || modifier.equals(new GenderModifier()) || modifier.equals(new PokeballModifier()) || modifier.equals(new NatureModifier())) {
                                     Utils.sendPlayerMessage(player, modifier.getCost(pokemon) + " " + PokeBuilder.getCurrency().getPluralDisplayName().toPlain() + " have been withdrawn from your account");
-                                    if (!player.getOpenInventory().isPresent())
-                                        container.openState(player, "editor");
+                                    if (!player.getOpenInventory().isPresent()){
+                                        container.openState(player, "editor");}
                                     player.getOpenInventory().map(inv1 -> Lists.<Inventory>newArrayList(inv1.slots()).get(22)).ifPresent(inv ->
                                             inv.set(ItemStack.builder()
                                                     .from((ItemStack) (Object) ItemPixelmonSprite.getPhoto(pokemon))

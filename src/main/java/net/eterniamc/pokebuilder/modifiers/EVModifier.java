@@ -161,7 +161,7 @@ public class EVModifier implements Modifier {
                                     }),
                                     ItemStack.builder()
                                             .itemType(ItemTypes.CONCRETE)
-                                            .add(Keys.DYE_COLOR, DyeColors.GREEN)
+                                            .add(Keys.DYE_COLOR, DyeColors.MAGENTA)
                                             .add(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, "+1 " + Utils.fromCamelToDisplay(type).replace("Hp", "HP") + " EV"))
                                             .add(Keys.ITEM_LORE, Collections.singletonList(Text.of(
                                                     getCost(pokemon, type) > Utils.getBal(player) ? TextColors.RED : TextColors.GREEN,
@@ -197,7 +197,7 @@ public class EVModifier implements Modifier {
                                     ItemStack.builder()
                                             .itemType(ItemTypes.CONCRETE)
                                             .quantity(10)
-                                            .add(Keys.DYE_COLOR, DyeColors.GREEN)
+                                            .add(Keys.DYE_COLOR, DyeColors.LIME)
                                             .add(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, "+10 " + Utils.fromCamelToDisplay(type).replace("Hp", "HP") + " EV"))
                                             .add(Keys.ITEM_LORE, Collections.singletonList(Text.of(
                                                     getCost(pokemon, type) * 10 > Utils.getBal(player) ? TextColors.RED : TextColors.GREEN,

@@ -90,15 +90,15 @@ public class PokeBuilder {
         }
         modifiers = Arrays.asList(
                 new EVModifier(),
-                new GenderModifier(),
-                new HiddenAbilityModifier(),
                 new IVModifier(),
-                new MaxHappinessModifier(),
-                new MoveModifier(),
+                new GenderModifier(),
                 new NatureModifier(),
+                new MoveModifier(),
                 new PokeballModifier(),
-                new ShinyModifier(),
-                new GrowthModifier()
+                new GrowthModifier(),
+                new HiddenAbilityModifier(),
+                new MaxHappinessModifier(),
+                new ShinyModifier()
         );
 
         Sponge.getEventManager().registerListeners(this, new ChatGuiHelper());

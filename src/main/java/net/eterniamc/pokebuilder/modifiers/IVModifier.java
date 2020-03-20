@@ -48,8 +48,8 @@ public class IVModifier implements Modifier {
         return 0;
     }
 
-    private double getCost(Pokemon pokemon, String type) {
-        return getBaseCost(type) * getMultiplier(pokemon);
+    private double getIVCost(Pokemon pokemon, String type) {
+        return getBaseCost(type);
     }
 
     private double getBaseCost(String type) {
@@ -130,11 +130,11 @@ public class IVModifier implements Modifier {
                         .add(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, Utils.fromCamelToDisplay(type).replace("Hp", "HP") + " IVs"))
                         .build())
                 );
-                if (getCost(pokemon, type) > 0) {
+                if (getIVCost(pokemon, type) > 0) {
                     builder.putElement(i + 2, new ActionableElement(
                                     new RunnableAction(container, ActionType.NONE, "", c -> {
                                         try {
-                                            if (!Utils.withdrawBalance(player, getCost(pokemon, type)) && (Integer) field.get(pokemon.getIVs()) + 1 <= IVStore.MAX_IVS) {
+                                            if (Utils.withdrawBalance(player, getIVCost(pokemon, type)) && (Integer) field.get(pokemon.getIVs()) + 1 <= IVStore.MAX_IVS) {
                                                 field.set(pokemon.getIVs(), ((Integer) field.get(pokemon.getIVs())) + 1);
                                                 player.getOpenInventory().map(inv1 -> Lists.<Inventory>newArrayList(inv1.slots()).get(i)).ifPresent(inv -> {
                                                      try {
@@ -157,11 +157,11 @@ public class IVModifier implements Modifier {
                                     }),
                                     ItemStack.builder()
                                             .itemType(ItemTypes.CONCRETE)
-                                            .add(Keys.DYE_COLOR, DyeColors.GREEN)
+                                            .add(Keys.DYE_COLOR, DyeColors.MAGENTA)
                                             .add(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, "+1 " + Utils.fromCamelToDisplay(type).replace("Hp", "HP") + " IV"))
                                             .add(Keys.ITEM_LORE, Collections.singletonList(Text.of(
-                                                    getCost(pokemon, type) > Utils.getBal(player) ? TextColors.RED : TextColors.GREEN,
-                                                    getCost(pokemon, type) + " " + PokeBuilder.getCurrency().getPluralDisplayName().toPlain()
+                                                    getIVCost(pokemon, type) > Utils.getBal(player) ? TextColors.RED : TextColors.GREEN,
+                                                    getIVCost(pokemon, type) + " " + PokeBuilder.getCurrency().getPluralDisplayName().toPlain()
                                             )))
                                             .build()
                             )
@@ -169,8 +169,8 @@ public class IVModifier implements Modifier {
                     builder.putElement(i + 3, new ActionableElement(
                                     new RunnableAction(container, ActionType.NONE, "", c -> {
                                         try {
-                                            if (Utils.withdrawBalance(player, getCost(pokemon, type)) && (Integer) field.get(pokemon.getIVs()) + 10 <= IVStore.MAX_IVS) {
-                                                field.set(pokemon.getIVs(), ((Integer) field.get(pokemon.getIVs())) + 1);
+                                            if (Utils.withdrawBalance(player, getIVCost(pokemon, type)) && (Integer) field.get(pokemon.getIVs()) + 10 <= IVStore.MAX_IVS) {
+                                                field.set(pokemon.getIVs(), ((Integer) field.get(pokemon.getIVs())) + 10);
                                                 player.getOpenInventory().map(inv1 -> Lists.<Inventory>newArrayList(inv1.slots()).get(i)).ifPresent(inv -> {
                                                             try {
                                                                 inv.set(ItemStack.builder()
@@ -193,11 +193,11 @@ public class IVModifier implements Modifier {
                                     ItemStack.builder()
                                             .itemType(ItemTypes.CONCRETE)
                                             .quantity(10)
-                                            .add(Keys.DYE_COLOR, DyeColors.GREEN)
+                                            .add(Keys.DYE_COLOR, DyeColors.LIME)
                                             .add(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, "+10 " + Utils.fromCamelToDisplay(type).replace("Hp", "HP") + " IV"))
                                             .add(Keys.ITEM_LORE, Collections.singletonList(Text.of(
-                                                    getCost(pokemon, type) * 10 > Utils.getBal(player) ? TextColors.RED : TextColors.GREEN,
-                                                    getCost(pokemon, type) * 10 + " " + PokeBuilder.getCurrency().getPluralDisplayName().toPlain()
+                                                    getIVCost(pokemon, type) * 10 > Utils.getBal(player) ? TextColors.RED : TextColors.GREEN,
+                                                    getIVCost(pokemon, type) * 10 + " " + PokeBuilder.getCurrency().getPluralDisplayName().toPlain()
                                             )))
                                             .build()
                             )

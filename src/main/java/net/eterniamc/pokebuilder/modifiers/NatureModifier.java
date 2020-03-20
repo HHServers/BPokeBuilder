@@ -48,7 +48,7 @@ public class NatureModifier implements Modifier {
                             new RunnableAction(container, ActionType.CLOSE, "", context -> {
                                 double cost = Config.natureModifierCost * (Arrays.stream(EnumSpecies.LEGENDARY_ENUMS).anyMatch(p -> pokemon.getSpecies() == p) || pokemon.getSpecies() == EnumSpecies.Ditto ? Config.legendaryOrDittoMultiplier : 1);
                                 if (data.getGui() != null && Utils.getBal(player) < cost) {
-                                    Utils.sendPlayerError(player, "You can't naturefford this!");
+                                    Utils.sendPlayerError(player, "You can't afford this!");
                                     return;
                                 }
                                 pokemon.setNature(nature);

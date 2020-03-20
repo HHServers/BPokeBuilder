@@ -55,7 +55,7 @@ public class MoveModifier implements Modifier {
                                 Page.PageBuilder moveSlot = Page.builder()
                                         .setAutoPaging(true)
                                         .setParent("move")
-                                        .setTitle(Text.of(pixelmon.getMoveset().get(i) != null ? "Replacing " + pixelmon.getMoveset().get(i).savedAttack.getLocalizedName() : "Teaching"))
+                                        .setTitle(Text.of(pixelmon.getMoveset().get(i) != null ? "Replacing " + pixelmon.getMoveset().get(i).toString() : "Teaching"))
                                         .setEmptyStack(Utils.empty());
                                 for (Attack attack : pixelmon.getBaseStats().getAllMoves().stream().filter(s -> !pixelmon.getMoveset().contains(s)).collect(Collectors.toList()))
                                     moveSlot.addElement(new ActionableElement(
@@ -69,7 +69,7 @@ public class MoveModifier implements Modifier {
                                                     }),
                                                     ItemStack.builder()
                                                             .itemType((ItemType) PixelmonItemsTMs.TMs.get(0))
-                                                            .add(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, attack.savedAttack.getLocalizedName()))
+                                                            .add(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, attack.toString()))
                                                             .add(Keys.ITEM_LORE, Collections.singletonList(Text.of("Teach your Pokemon this move")))
                                                             .build()
                                             )
@@ -82,7 +82,7 @@ public class MoveModifier implements Modifier {
                                     ItemStack.builder()
                                             .itemType(ItemTypes.STAINED_GLASS_PANE)
                                             .add(Keys.DYE_COLOR, DyeColors.WHITE)
-                                            .add(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, pixelmon.getMoveset().get(i).savedAttack.getAttackName()))
+                                            .add(Keys.DISPLAY_NAME, Text.of(TextColors.WHITE, pixelmon.getMoveset().get(i).toString()))
                                             .build() :
                                     ItemStack.builder()
                                             .itemType(ItemTypes.BARRIER)
